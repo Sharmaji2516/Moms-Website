@@ -42,14 +42,12 @@ h4 {
 
 /* Top Bar */
 .top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative; /* Changed from fixed to prevent mobile overlap */
     width: 100%;
     background: var(--primary-color);
     color: white;
     text-align: center;
-    padding: 10px 0;
+    padding: 10px 5%; /* Added horizontal padding for mobile */
     z-index: 2000;
     font-weight: 600;
     font-size: 0.95rem;
@@ -77,10 +75,10 @@ h4 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 5%;
-    position: fixed;
+    padding: 1rem 5%;
+    position: sticky; /* Changed from fixed to stick at top of viewport */
+    top: 0;
     width: 100%;
-    top: 40px; /* Adjusted for top bar */
     background: rgba(255, 253, 208, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
@@ -150,7 +148,7 @@ h4 {
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
-    padding-top: 130px; /* Adjusted for top bar + navbar */
+    padding-top: 40px; /* Reduced since navbar is no longer taking fixed space from top */
     background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 40%),
         radial-gradient(circle at bottom left, rgba(139, 0, 0, 0.05), transparent 40%);
     position: relative;
@@ -508,7 +506,7 @@ footer {
     .hero {
         flex-direction: column;
         text-align: center;
-        padding-top: 180px; /* Increased to prevent hidden text */
+        padding-top: 2rem;
         height: auto;
         padding-bottom: 4rem;
     }
@@ -607,19 +605,28 @@ footer {
 
 .close-modal {
     position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2rem;
-    background: none;
+    top: 10px;
+    right: 10px;
+    font-size: 2.2rem;
+    background: rgba(255, 255, 255, 0.8);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    z-index: 3010;
     border: none;
     cursor: pointer;
     color: var(--text-color);
     transition: var(--transition);
+    line-height: 1;
 }
 
 .close-modal:hover {
     color: var(--primary-color);
     transform: rotate(90deg);
+    background: white;
 }
 
 .modal-icon {
@@ -915,7 +922,7 @@ footer {
     }
 
     .nav-links {
-        gap: 1.5rem;
+        gap: 2.5rem; /* Increased gap for better tap targets and look */
         width: 100%;
         justify-content: center;
         padding-bottom: 0.5rem;
@@ -927,8 +934,7 @@ footer {
 
     /* Hero Section */
     .hero {
-        padding-top: 160px;
-        /* More space for stacked nav */
+        padding-top: 2rem;
         padding-bottom: 3rem;
         text-align: center;
         flex-direction: column;
@@ -1105,27 +1111,50 @@ footer {
 }
 
 @media print {
-    body * {
-        visibility: hidden;
+    @page {
+        size: portrait;
+        margin: 1cm;
     }
-    #printable-invoice, #printable-invoice * {
-        visibility: visible;
-    }
-    #printable-invoice {
-        position: fixed;
-        left: 0; top: 0;
-        width: 100vw;
-        height: 100vh;
-        padding: 40px !important;
-        background: white !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-    }
-    .no-print, .close-modal {
+    
+    /* Hide everything that isn't the invoice */
+    body > *:not(#invoice-modal) {
         display: none !important;
     }
-    .invoice-premium-border {
+    
+    body {
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+    }
+    
+    #invoice-modal {
         display: block !important;
+        position: static !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        padding: 0 !important;
+        background: white !important;
+    }
+
+    #invoice-modal .premium-invoice-card {
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        position: static !important;
+        transform: none !important;
+        border: none !important;
+    }
+    
+    .no-print, .close-modal, .invoice-premium-border {
+        display: none !important;
     }
 }
 
@@ -1180,4 +1209,95 @@ footer {
     .no-print .btn-primary {
         width: 100%;
     }
+
+    /* Testimonials Modal Icon & Header Mobile Polish */
+    .modal-icon {
+        font-size: 3rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .modal-content {
+        padding: 2rem 1.5rem !important;
+        width: 95% !important;
+    }
+    .modal-header h2 {
+        font-size: 1.8rem !important;
+    }
+
+    /* Feedback Form Mobile Polish */
+    #feedback > div {
+        padding: 2rem 1.5rem !important;
+        width: 100% !important;
+        border-radius: 20px !important;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem !important;
+        margin-bottom: 5px !important;
+        display: block;
+    }
+
+    .form-group input, .form-group textarea {
+        padding: 12px !important;
+        font-size: 0.95rem !important;
+        margin-top: 5px;
+    }
+}
+
+/* Testimonials Section */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    transition: var(--transition);
+    position: relative;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.quote-icon {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    opacity: 0.3;
+    margin-bottom: 1rem;
+}
+
+.testimonial-text {
+    font-size: 1.05rem;
+    color: #444;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+.testimonial-author {
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
+
+.author-name {
+    font-weight: 700;
+    color: var(--primary-color);
+    display: block;
+}
+
+.author-location {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.stars {
+    color: #FFD700;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
 }

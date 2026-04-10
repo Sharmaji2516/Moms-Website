@@ -228,6 +228,23 @@ window.closeSampleModal = function () {
     }
 };
 
+window.openPolicyModal = function () {
+    const modal = document.getElementById('policy-modal');
+    if (modal) modal.classList.add('active');
+};
+
+window.closePolicyModal = function () {
+    const modal = document.getElementById('policy-modal');
+    if (modal) modal.classList.remove('active');
+};
+
+window.shareScreenshot = function () {
+    const total = document.getElementById('inv-total').innerText;
+    const phone = "919785054474"; // Your WhatsApp number
+    const message = `Hi, I have just paid ${total} for my order! Here is my payment screenshot for verification.`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+};
+
 window.previewInvoice = function () {
     if (Object.keys(cart).length === 0) {
         showNotification("Add some items to your cart first!");
@@ -294,6 +311,20 @@ window.openInvoice = function (data) {
     document.getElementById('inv-subtotal').innerText = '₹' + data.total;
     document.getElementById('inv-total').innerText = '₹' + data.total;
 
+    // Handle Payment Section (QR & Button)
+    const paymentOptions = document.getElementById('payment-options');
+    const upiPayLink = document.getElementById('upi-pay-link');
+    
+    if (data.payment === 'Online Banking') {
+        paymentOptions.style.display = 'block';
+        // Generate UPI URL: upi://pay?pa=7597901057@upi&pn=MomsAchaar&am=AMOUNT&cu=INR
+        const upiID = "7597901057@upi";
+        const upiUrl = `upi://pay?pa=${upiID}&pn=MomsAchaar&am=${data.total}&cu=INR`;
+        upiPayLink.href = upiUrl;
+    } else {
+        paymentOptions.style.display = 'none';
+    }
+
     modal.classList.add('active');
 };
 
@@ -310,6 +341,7 @@ if (orderForm) {
         // Get form values
         const name = document.getElementById('name').value;
         const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
         const address = document.getElementById('address').value;
         const instructions = document.getElementById('instructions').value;
         const payment = document.querySelector('input[name="payment"]:checked').value;

@@ -241,6 +241,17 @@
     </section>
 
 
+    <!-- Online & Local Availability Section -->
+    <section class="section" style="background: rgba(212, 175, 55, 0.05); border-radius: 40px; margin: 0 5%; padding: 4rem 2rem;">
+        <div style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📦</div>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Taste the Legacy, Anywhere</h2>
+            <p style="font-size: 1.2rem; color: #5a4a42; max-width: 700px; margin: 0 auto 1.5rem;">
+                Experience the authentic taste of tradition in person or from the comfort of your home. <strong>We are available online</strong> and we deliver our premium handcrafted jars right to your doorstep!
+            </p>
+        </div>
+    </section>
+
     <!-- Order Section -->
     <section id="order" class="section order-section">
         <h2 class="section-title">Secure Your Jar</h2>
@@ -266,6 +277,10 @@
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" required placeholder="e.g. 98765 43210">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address (For Confirmation)</label>
+                    <input type="email" id="email" required placeholder="name@example.com">
                 </div>
                 <div class="form-group">
                     <label for="address">Delivery Address</label>
@@ -296,26 +311,35 @@
         </div>
     </section>
 
-    <!-- Terms & Conditions -->
-    <section id="terms" class="section terms-section">
-        <h2 class="section-title">Terms & Conditions</h2>
-        <div class="terms-container">
-            <p><strong>Returns & Refunds:</strong> Due to the nature of our food products, we do not accept returns.
-                However, if you receive a damaged jar, please contact us within 24 hours with photos for a replacement
-                or refund.</p>
-            <p><strong>Privacy:</strong> Your personal information is used only for order processing and delivery. We do
-                not share your data with third parties.</p>
-            <p><strong>Allergens:</strong> Our products are made in a facility that handles nuts, mustard, and spices.
-                Please check ingredients carefully if you have allergies.</p>
+    <!-- Policy Modal -->
+    <div id="policy-modal" class="modal-overlay">
+        <div class="modal-content" style="text-align: left; max-width: 650px;">
+            <button class="close-modal" onclick="closePolicyModal()">&times;</button>
+            <div class="modal-header">
+                <span class="modal-icon">📄</span>
+                <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Refund & Cancellation Policy</h2>
+            </div>
+            <div class="modal-body" style="font-size: 0.95rem; line-height: 1.6; color: #444;">
+                <p><strong>Returns:</strong> We do not accept returns once the order is delivered.</p>
+                <p style="margin-top:10px;"><strong>Refunds are issued if:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Product is unavailable after payment.</li>
+                    <li>Product was damaged on delivery (photo proof required).</li>
+                    <li>Product was lost in transit.</li>
+                </ul>
+                <p><strong>Cancellations:</strong> We reserve the right to cancel orders for any reason. If cancelled after payment, you will receive a refund within 5-7 working days.</p>
+                <p style="margin-top: 15px; font-weight: 600; color: var(--primary-color);">Questions? Contact: rajesh.chittaurgarh@gmail.com</p>
+            </div>
         </div>
-    </section>
+    </div>
 
     <footer>
         <p>&copy; 2025 Mom's Homemade Achaar. Preserving Tradition.</p>
-        <div class="footer-contact" style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">
-            <p><strong>Contact Us:</strong></p>
-            <p>Email: <a href="mailto:rajesh.chittaurgarh@gmail.com" style="color: inherit; text-decoration: none;">rajesh.chittaurgarh@gmail.com</a></p>
-            <p>Phone: <a href="tel:+919785054474" style="color: inherit; text-decoration: none;">+91 9785054474</a></p>
+        <div style="margin: 15px 0;">
+            <a href="javascript:void(0)" onclick="openPolicyModal()" style="color: var(--secondary-color); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Refund & Cancellation Policy</a>
+        </div>
+        <div class="footer-contact" style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+            <p>Email: <a href="mailto:rajesh.chittaurgarh@gmail.com" style="color: inherit; text-decoration: none;">rajesh.chittaurgarh@gmail.com</a> | Phone: <a href="tel:+919785054474" style="color: inherit; text-decoration: none;">+91 9785054474</a></p>
         </div>
     </footer>
 
@@ -375,6 +399,40 @@
                     <span style="color: #777; width: 100px; text-align: right; padding-right: 15px;">Delivery:</span>
                     <span style="font-weight: 600; width: 80px; text-align: right; color: #8b1d1d;">TBD</span>
                 </div>
+                <div id="payment-options" style="display: none; margin-top: 25px; padding: 20px; background: #fffcf5; border: 2px dashed var(--secondary-color); border-radius: 15px; text-align: center;">
+                    <h4 style="color: #8b1d1d; margin-bottom: 15px; font-size: 1.1rem;">Secure Payment Steps</h4>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 15px; text-align: left; margin-bottom: 20px; font-size: 0.9rem; color: #5a4a42;">
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span style="background: var(--secondary-color); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0;">1</span>
+                            <p><strong>Scan & Pay:</strong> Scan the QR code below and pay the total amount on your UPI app.</p>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span style="background: var(--secondary-color); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0;">2</span>
+                            <p><strong>Take a Screenshot:</strong> Save the "Payment Successful" screen on your phone.</p>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <span style="background: var(--secondary-color); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0;">3</span>
+                            <p><strong>Confirm on WhatsApp:</strong> Click the button below to share the screenshot with us for instant verification.</p>
+                        </div>
+                    </div>
+
+                    <div id="invoice-qr-container" style="margin-bottom: 15px; background: white; padding: 15px; display: inline-block; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <img src="QR_1775839667.png" alt="Payment QR Code" style="width: 160px; height: 160px; border-radius: 10px;">
+                        <p style="margin-top: 5px; font-weight: 700; color: #333; font-size: 0.85rem;">UPI ID: 7597901057@upi</p>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <a id="upi-pay-link" href="#" class="btn-primary" style="background: #2E8B57; border-color: #2E8B57; width: 100%;">Option A: Open Payment App</a>
+                        <div style="text-align: center;">
+                            <button onclick="shareScreenshot()" class="btn-primary" style="background: #25D366; border-color: #25D366; width: 100%;">Option B: Share Screenshot via WhatsApp</button>
+                            <p style="font-size: 0.75rem; color: #666; margin-top: 8px; opacity: 0.8;">
+                                💡 <i>Once WhatsApp opens, tap the <b>📎 icon</b> to attach your screenshot.</i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
                 <div style="width: 100%; display: flex; justify-content: flex-end; border-top: 2px solid #eee; padding-top: 10px; margin-top: 5px;">
                     <span style="font-weight: 700; font-size: 1.1rem; width: 100px; text-align: right; padding-right: 15px;">Total:</span>
                     <span id="inv-total" style="font-weight: 700; font-size: 1.3rem; color: #8b1d1d; width: 80px; text-align: right;">₹0</span>
@@ -387,7 +445,7 @@
             </div>
 
             <div class="no-print" style="margin-top: 30px; display: flex; gap: 10px; justify-content: center;">
-                <button class="btn-primary" onclick="window.print()" style="background: #8b1d1d; padding: 10px 25px;">Print / Save PDF</button>
+                <button class="btn-primary" onclick="window.print()" style="background: #8b1d1d; color: white; padding: 10px 25px;">Print / Save PDF</button>
                 <button class="btn-primary" onclick="closeInvoiceModal()" style="background: #fff; color: #333; border: 1px solid #ddd; box-shadow: none; padding: 10px 25px;">Close</button>
             </div>
         </div>

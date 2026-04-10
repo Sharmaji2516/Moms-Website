@@ -287,17 +287,35 @@
         }
 
         @media print {
+            @page {
+                size: portrait;
+                margin: 1cm;
+            }
             .actions {
                 display: none;
             }
             body {
                 padding: 0;
-                background: white;
+                margin: 0;
+                background: white !important;
+                display: block;
+                height: auto;
+                min-height: 0;
             }
             .invoice-card {
                 box-shadow: none;
                 max-width: 100%;
                 width: 100%;
+                padding: 0;
+                border: none;
+                margin: 0;
+                background: white;
+                backdrop-filter: none;
+                position: static;
+                border-radius: 0;
+            }
+            .premium-border {
+                display: none;
             }
         }
 
